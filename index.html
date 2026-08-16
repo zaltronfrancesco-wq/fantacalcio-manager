@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FantaManager">
+<title>FantaManager</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#080a0f;
+color:#f7f7fa;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+}
+
+.app{
+min-height:100vh;
+max-width:720px;
+margin:auto;
+padding:20px 18px 30px
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0 20px
+}
+
+.brand{
+font-size:25px;
+font-weight:800
+}
+
+.brand span{
+color:#62e6a7
+}
+
+.pill{
+background:#11141b;
+border:1px solid #252b36;
+border-radius:999px;
+padding:8px 12px;
+color:#b8c0cc;
+font-size:12px
+}
+
+.hero{
+background:linear-gradient(145deg,#151a24,#0e1118);
+border:1px solid #252b36;
+border-radius:26px;
+padding:24px;
+margin-bottom:16px
+}
+
+.eyebrow{
+color:#62e6a7;
+font-size:12px;
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:1.3px
+}
+
+.hero h1{
+font-size:35px;
+line-height:1.02;
+margin:9px 0 10px
+}
+
+.hero p{
+color:#9da6b4;
+line-height:1.45
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
+.card{
+background:#11141b;
+border:1px solid #252b36;
+border-radius:20px;
+padding:18px
+}
+
+.big{
+font-size:28px;
+font-weight:800;
+margin:5px 0
+}
+
+.muted{
+color:#9da6b4;
+font-size:13px
+}
+
+.section{
+margin:22px 0 10px;
+font-size:17px;
+font-weight:800
+}
+
+button{
+font:inherit;
+border:0;
+cursor:pointer
+}
+
+.primary{
+width:100%;
+background:#62e6a7;
+color:#07100b;
+padding:15px;
+border-radius:15px;
+font-weight:800;
+margin-top:15px
+}
+
+.secondary{
+width:100%;
+background:#191e27;
+color:#fff;
+border:1px solid #2a313d;
+padding:12px;
+border-radius:13px;
+font-weight:700;
+margin-top:10px
+}
+
+.options{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px
+}
+
+.option{
+padding:13px 6px;
+background:#11141b;
+color:#aeb6c2;
+border:1px solid #2a313d;
+border-radius:13px;
+font-weight:800
+}
+
+.option.active{
+background:#62e6a7;
+color:#07100b
+}
+
+.teams{
+display:grid;
+gap:10px
+}
+
+.team{
+display:flex;
+align-items:center;
+gap:12px;
+background:#11141b;
+border:1px solid #252b36;
+border-radius:17px;
+padding:13px
+}
+
+.badge{
+width:38px;
+height:38px;
+border-radius:12px;
+display:grid;
+place-items:center;
+background:#1b222d;
+color:#62e6a7;
+font-weight:800
+}
+
+input{
+background:#0b0e13;
+color:#fff;
+border:1px solid #2a313d;
+padding:14px;
+border-radius:13px;
+outline:0;
+width:100%
+}
+
+.team input{
+background:transparent;
+border:0;
+padding:4px;
+font-weight:700
+}
+
+.hidden{
+display:none
+}
+
+.nav{
+margin-top:20px;
+background:#11141d;
+border:1px solid #292f3a;
+border-radius:20px;
+padding:8px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px
+}
+
+.nav button{
+background:transparent;
+color:#8e97a5;
+padding:10px
+}
+
+.notice{
+font-size:12px;
+color:#7f8998;
+margin-top:12px;
+text-align:center
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+<div class="brand">Fanta<span>Manager</span></div>
+<div class="pill" id="leaguePill">Nuova lega</div>
+</header>
+
+<main id="home">
+
+<section class="hero">
+
+<div class="eyebrow">
+Presidente di lega
+</div>
+
+<h1>
+La tua lega.<br>
+Un solo controllo.
+</h1>
+
+<p>
+Crea la lega, scegli il numero di squadre e assegna a ciascuna il nome che vuoi.
+</p>
+
+<button class="primary" onclick="showSetup()">
+Crea / configura lega
+</button>
+
+</section>
+
+<div class="grid">
+
+<div class="card">
+<div class="muted">Squadre</div>
+<div class="big" id="count">—</div>
+<div class="muted">partecipanti</div>
+</div>
+
+<div class="card">
+<div class="muted">Budget</div>
+<div class="big" id="budgetView">—</div>
+<div class="muted">crediti per squadra</div>
+</div>
+
+</div>
+
+<div class="section">
+Strumenti
+</div>
+
+<div class="grid">
+
+<div class="card">
+⚽ <b>Asta</b>
+<div class="muted">In arrivo</div>
+</div>
+
+<div class="card">
+📊 <b>Rose</b>
+<div class="muted">In arrivo</div>
+</div>
+
+<div class="card">
+🏆 <b>Classifica</b>
+<div class="muted">In arrivo</div>
+</div>
+
+<div class="card">
+🕘 <b>Storico</b>
+<div class="muted">In arrivo</div>
+</div>
+
+</div>
+
+</main>
+
+<section id="setup" class="hidden">
+
+<div class="section">
+Configurazione lega
+</div>
+
+<div class="card">
+
+<div class="muted">
+Nome della lega
+</div>
+
+<input
+id="leagueName"
+placeholder="Es. Mavchizza League"
+style="margin-top:8px"
+>
+
+<div class="section">
+Numero squadre
+</div>
+
+<div class="options" id="options">
+</div>
+
+<div class="section">
+Budget iniziale
+</div>
+
+<input
+id="budget"
+type="number"
+min="1"
+value="500"
+>
+
+<div class="section">
+Nomi delle squadre
+</div>
+
+<div class="teams" id="teams">
+</div>
+
+<button class="primary" onclick="saveLeague()">
+Salva lega
+</button>
+
+<button class="secondary" onclick="showHome()">
+Annulla
+</button>
+
+</div>
+
+</section>
+
+<nav class="nav">
+
+<button onclick="showHome()">
+⌂<br>
+<small>Home</small>
+</button>
+
+<button onclick="showSetup()">
+⚙<br>
+<small>Lega</small>
+</button>
+
+<button onclick="alert('Il modulo Asta verrà aggiunto nel prossimo aggiornamento.')">
+⚡<br>
+<small>Asta</small>
+</button>
+
+</nav>
+
+<div class="notice">
+I dati della lega vengono salvati sul dispositivo.
+</div>
+
+</div>
+
+<script>
+
+let state=JSON.parse(
+localStorage.getItem('fantaManager')||'null'
+)||{
+name:'',
+teams:8,
+budget:500,
+names:[]
+};
+
+function ensureNames(){
+
+for(let i=0;i<state.teams;i++){
+
+if(!state.names[i]){
+state.names[i]='Squadra '+(i+1);
+}
+
+}
+
+state.names=state.names.slice(0,state.teams);
+
+}
+
+function render(){
+
+ensureNames();
+
+document.getElementById('count').textContent=state.teams;
+
+document.getElementById('budgetView').textContent=state.budget;
+
+document.getElementById('leaguePill').textContent=
+state.name||'Nuova lega';
+
+document.getElementById('leagueName').value=state.name;
+
+document.getElementById('budget').value=state.budget;
+
+renderOptions();
+
+renderTeams();
+
+}
+
+function renderOptions(){
+
+document.getElementById('options').innerHTML=
+[6,8,10,12].map(n=>
+
+`<button class="option ${
+state.teams===n?'active':''
+}"
+onclick="setTeams(${n})">
+
+${n}
+
+</button>`
+
+).join('');
+
+}
+
+function renderTeams(){
+
+document.getElementById('teams').innerHTML=
+state.names.map((n,i)=>
+
+`<div class="team">
+
+<div class="badge">
+${i+1}
+</div>
+
+<input
+value="${escapeHtml(n)}"
+oninput="state.names[${i}]=this.value"
+>
+
+</div>`
+
+).join('');
+
+}
+
+function setTeams(n){
+
+state.teams=n;
+
+ensureNames();
+
+renderOptions();
+
+renderTeams();
+
+}
+
+function saveLeague(){
+
+state.name=
+document.getElementById('leagueName').value.trim()
+||'La mia lega';
+
+state.budget=
+Number(document.getElementById('budget').value)
+||500;
+
+ensureNames();
+
+localStorage.setItem(
+'fantaManager',
+JSON.stringify(state)
+);
+
+render();
+
+showHome();
+
+}
+
+function showSetup(){
+
+document.getElementById('home')
+.classList.add('hidden');
+
+document.getElementById('setup')
+.classList.remove('hidden');
+
+ensureNames();
+
+renderOptions();
+
+renderTeams();
+
+}
+
+function showHome(){
+
+document.getElementById('home')
+.classList.remove('hidden');
+
+document.getElementById('setup')
+.classList.add('hidden');
+
+}
+
+function escapeHtml(s){
+
+return String(s).replace(
+/[&<>"']/g,
+
+c=>({
+
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+
+}[c])
+
+);
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
